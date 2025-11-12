@@ -9,6 +9,8 @@ import SignUp from '../screens/SignUp';
 import Home from '../screens/Home';
 import CheckIn from '../screens/CheckIn';
 import History from '../screens/History';
+import Recommendations from '../screens/Recommendations';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +46,12 @@ export default function AppNavigator() {
             component={History}
             options={{ headerShown: true, title: 'Histórico' }}
           />
+          <Stack.Screen 
+            name="Recommendations" 
+            component={Recommendations}
+            options={{ headerShown: true, title: 'Recomendações' }}
+          />
+
         </>
       ) : (
         <>

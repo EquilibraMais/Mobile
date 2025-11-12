@@ -23,6 +23,13 @@ export default function Home({ navigation }: any) {
         <Text style={styles.checkInButtonText}>Fazer Check-in Diário</Text>
       </TouchableOpacity>
       <TouchableOpacity 
+        style={styles.recommendationsButton}
+        onPress={() => navigation.navigate('Recommendations')}
+      >
+        <Text style={styles.recommendationsButtonText}>Ver Recomendações</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
         style={styles.historyButton}
         onPress={() => navigation.navigate('History')}
       >
@@ -58,11 +65,11 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   checkInButton: {
-    backgroundColor: '#4b7bffff',
+    backgroundColor: '#24913fff',
     paddingVertical: 15,
     paddingHorizontal: 40,
     borderRadius: 30,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   checkInButtonText: {
     color: '#fff',
@@ -77,6 +84,18 @@ const styles = StyleSheet.create({
   marginBottom: 10,
 },
 historyButtonText: {
+  color: '#fff',
+  fontSize: 18,
+  fontFamily: 'Inter_400Regular',
+},
+recommendationsButton: {
+  backgroundColor: '#24913fff',
+  paddingVertical: 15,
+  paddingHorizontal: 40,
+  borderRadius: 30,
+  marginBottom: 10,
+},
+recommendationsButtonText: {
   color: '#fff',
   fontSize: 18,
   fontFamily: 'Inter_400Regular',
