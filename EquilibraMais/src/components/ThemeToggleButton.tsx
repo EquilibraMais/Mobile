@@ -44,8 +44,8 @@ export default function ThemeToggleButton() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 800,
-    left: 20,
+    bottom: 820,
+    left: 10,
     zIndex: 999,
   },
   button: {
