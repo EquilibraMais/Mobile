@@ -22,6 +22,13 @@ export default function Home({ navigation }: any) {
       >
         <Text style={styles.checkInButtonText}>Fazer Check-in Diário</Text>
       </TouchableOpacity>
+      <TouchableOpacity 
+        style={styles.historyButton}
+        onPress={() => navigation.navigate('History')}
+      >
+        <Text style={styles.historyButtonText}>Ver Meu Histórico</Text>
+    </TouchableOpacity>
+
 
       <Button title="Sair" onPress={handleLogout} />
     </View>
@@ -62,4 +69,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     fontSize: 18,
   },
+  historyButton: {
+  backgroundColor: '#24913fff',
+  paddingVertical: 15,
+  paddingHorizontal: 40,
+  borderRadius: 30,
+  marginBottom: 10,
+},
+historyButtonText: {
+  color: '#fff',
+  fontSize: 18,
+  fontFamily: 'Inter_400Regular',
+},
+
 });

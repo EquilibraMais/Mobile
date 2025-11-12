@@ -8,6 +8,7 @@ import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Home from '../screens/Home';
 import CheckIn from '../screens/CheckIn';
+import History from '../screens/History';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,11 @@ export default function AppNavigator() {
             name="CheckIn" 
             component={CheckIn}
             options={{ headerShown: true, title: 'Check-in Diário' }}
+          />
+          <Stack.Screen 
+            name="History" 
+            component={History}
+            options={{ headerShown: true, title: 'Histórico' }}
           />
         </>
       ) : (
