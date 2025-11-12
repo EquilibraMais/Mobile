@@ -18,7 +18,7 @@ export default function LoginScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Login "teste@email.com" "teste123"</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"

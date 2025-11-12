@@ -1,8 +1,13 @@
-import { initializeApp } from 'firebase/app';
+// Import the functions you need from the SDKs you need
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDnMOIYIXc2Tr_lqWmHs9JH68BkRk4qc",
+  apiKey: "AIzaSyDnW0IYIXc2Tr_lqWNm1Hs9JH60BkRK4qc",
   authDomain: "equilibramais-gs.firebaseapp.com",
   projectId: "equilibramais-gs",
   storageBucket: "equilibramais-gs.firebasestorage.app",
@@ -11,5 +16,7 @@ const firebaseConfig = {
   measurementId: "G-PNXK8XKPMG"
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
 export const auth = getAuth(app);
