@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#669168',
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 50,
+    alignItems: 'center',
   },
   title: {
     fontSize: 28,

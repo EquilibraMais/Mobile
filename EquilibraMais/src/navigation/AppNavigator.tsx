@@ -12,6 +12,8 @@ import Home from '../screens/Home';
 import CheckIn from '../screens/CheckIn';
 import History from '../screens/History';
 import Recommendations from '../screens/Recommendations';
+import About from '../screens/About';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -20,23 +22,17 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: '#8FAA85',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontFamily: 'Inter_700Bold',
-        },
+        headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#E3E3E3',
-          height: 60,
-          paddingBottom: 8,
+          backgroundColor: '#BAC9B2',
+          height: 85,
+          paddingBottom: 18,
           paddingTop: 8,
         },
         tabBarActiveTintColor: '#24913fff',
-        tabBarInactiveTintColor: '#999',
+        tabBarInactiveTintColor: '#ffffffff',
         tabBarLabelStyle: {
-          fontFamily: 'Inter_600SemiBold',
+          fontFamily: 'Inter_400Regular',
           fontSize: 12,
         },
       }}
@@ -62,6 +58,16 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen 
+        name="Recommendations" 
+        component={Recommendations}
+        options={{
+          title: 'Dicas',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bulb" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen 
         name="History" 
         component={History}
         options={{
@@ -72,15 +78,16 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen 
-        name="Recommendations" 
-        component={Recommendations}
+        name="About" 
+        component={About}
         options={{
-          title: 'Dicas',
+          title: 'Sobre',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bulb" size={size} color={color} />
-          ),
-        }}
-      />
+            <Ionicons name="information-circle" size={size} color={color} />
+    ),
+  }}
+/>
     </Tab.Navigator>
   );
 }

@@ -167,14 +167,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#BAC9B2',
   },
   header: {
-    backgroundColor: '#8FAA85',
+    backgroundColor: '#669168',
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 50,
+    alignItems: 'center',
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    fontFamily: 'Inter_700Bold',
+    fontFamily: 'Inter_400Regular',
     color: '#fff',
     marginBottom: 5,
   },
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     opacity: 0.95,
   },
   categoriesContainer: {
-    maxHeight: 60,
+    maxHeight: 40,
     marginTop: 15,
   },
   categoriesContent: {
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   categoryButtonText: {
     fontSize: 14,
-    fontFamily: 'Inter_600SemiBold',
+    fontFamily: 'Inter_400Regular',
     color: '#555',
   },
   categoryButtonTextActive: {
@@ -242,8 +242,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: 'Inter_700Bold',
+    fontFamily: 'Inter_400Regular',
     color: '#333',
     marginBottom: 4,
   },

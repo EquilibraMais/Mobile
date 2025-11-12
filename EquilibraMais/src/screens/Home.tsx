@@ -36,6 +36,12 @@ export default function Home({ navigation }: any) {
         <Text style={styles.historyButtonText}>Ver Meu Histórico</Text>
     </TouchableOpacity>
 
+    <TouchableOpacity 
+        style={styles.historyButton}
+        onPress={() => navigation.navigate('About')}
+      >
+        <Text style={styles.historyButtonText}>Sobre o Aplicativo</Text>
+    </TouchableOpacity>
 
       <Button title="Sair" onPress={handleLogout} />
     </View>
