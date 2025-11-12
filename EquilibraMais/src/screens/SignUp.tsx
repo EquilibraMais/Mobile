@@ -61,18 +61,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#BAC9B2',
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'Inter_400Regular',
     marginBottom: 20,
     textAlign: 'center',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#9e9b9bff',
     borderRadius: 5,
     padding: 10,
+    fontFamily: 'Inter_400Regular',
     marginBottom: 15,
+    backgroundColor: '#ffffff',
   },
 });

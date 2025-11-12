@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 26,
+    fontFamily: 'Inter_400Regular',
     fontWeight: 'bold',
     marginBottom: 15,
     textAlign: 'center',
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 30,
+    fontFamily: 'Inter_400Regular',
     color: '#555',
   },
   checkInButton: {
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   },
   checkInButtonText: {
     color: '#fff',
+    fontFamily: 'Inter_400Regular',
     fontSize: 18,
-    fontWeight: 'bold',
   },
 });

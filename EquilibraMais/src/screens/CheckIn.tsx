@@ -174,13 +174,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: 'Inter_400Regular',
     color: '#fff',
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 16,
     color: '#fff',
+    fontFamily: 'Inter_400Regular',
     opacity: 0.9,
   },
   selectorContainer: {
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
   },
   selectorTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'Inter_400Regular',
     color: '#333',
     marginBottom: 15,
   },
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 14,
     color: '#333',
-    fontWeight: '500',
+    fontFamily: 'Inter_400Regular',
   },
   optionTextSelected: {
     color: '#fff',
@@ -263,6 +264,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     fontSize: 14,
+    fontFamily: 'Inter_400Regular',
     textAlignVertical: 'top',
     minHeight: 100,
   },
@@ -277,7 +279,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Inter_400Regular',
   },
   bottomSpacing: {
     height: 30,
