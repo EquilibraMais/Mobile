@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebase';
 
-export default function LoginScreen({ navigation }: any) {
+export default function Login({ navigation }: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +18,7 @@ export default function LoginScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login "teste@email.com" "teste123"</Text>
+      <Text style={styles.title}>Login "teste@email.com" "senha123"</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
