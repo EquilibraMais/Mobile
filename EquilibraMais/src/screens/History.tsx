@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { auth } from '../services/firebase';
+import { useTheme } from '../context/ThemeContext';
 
 interface CheckInData {
   id: string;
@@ -21,6 +22,7 @@ interface CheckInData {
 }
 
 export default function History({ navigation }: any) {
+  const { colors } = useTheme();
   const [checkIns, setCheckIns] = useState<CheckInData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,12 +33,6 @@ export default function History({ navigation }: any) {
   const fetchCheckIns = async () => {
     try {
       // TODO: Substituir por chamada à sua API
-      // Exemplo de como seria:
-      // const response = await fetch(`https://sua-api.com/checkins?userId=${auth.currentUser?.uid}`);
-      // const data = await response.json();
-      // setCheckIns(data);
-
-      // Dados mockados para demonstração
       const mockData: CheckInData[] = [
         {
           id: '1',
@@ -95,35 +91,57 @@ export default function History({ navigation }: any) {
   };
 
   const renderCheckInCard = ({ item }: { item: CheckInData }) => (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <Text style={styles.cardDate}>{formatDate(item.timestamp)}</Text>
+    <View style={[styles.card, { backgroundColor: colors.card }]}>
+      <View style={[styles.cardHeader, { borderBottomColor: colors.border }]}>
+        <Text style={[styles.cardDate, { color: colors.textSecondary }]}>
+          {formatDate(item.timestamp)}
+        </Text>
         <Text style={styles.moodEmoji}>{getMoodEmoji(item.mood)}</Text>
       </View>
 
       <View style={styles.metricsContainer}>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>Humor</Text>
-          <Text style={styles.metricValue}>{item.mood}/5</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>
+            Humor
+          </Text>
+          <Text style={[styles.metricValue, { color: colors.primary }]}>
+            {item.mood}/5
+          </Text>
         </View>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>Energia</Text>
-          <Text style={styles.metricValue}>{item.energy}/5</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>
+            Energia
+          </Text>
+          <Text style={[styles.metricValue, { color: colors.primary }]}>
+            {item.energy}/5
+          </Text>
         </View>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>Carga</Text>
-          <Text style={styles.metricValue}>{item.workload}/5</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>
+            Carga
+          </Text>
+          <Text style={[styles.metricValue, { color: colors.primary }]}>
+            {item.workload}/5
+          </Text>
         </View>
         <View style={styles.metric}>
-          <Text style={styles.metricLabel}>Sono</Text>
-          <Text style={styles.metricValue}>{item.sleep}/5</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>
+            Sono
+          </Text>
+          <Text style={[styles.metricValue, { color: colors.primary }]}>
+            {item.sleep}/5
+          </Text>
         </View>
       </View>
 
       {item.comments ? (
-        <View style={styles.commentsContainer}>
-          <Text style={styles.commentsLabel}>Comentário:</Text>
-          <Text style={styles.commentsText}>{item.comments}</Text>
+        <View style={[styles.commentsContainer, { borderTopColor: colors.border }]}>
+          <Text style={[styles.commentsLabel, { color: colors.textSecondary }]}>
+            Comentário:
+          </Text>
+          <Text style={[styles.commentsText, { color: colors.text }]}>
+            {item.comments}
+          </Text>
         </View>
       ) : null}
     </View>
@@ -131,16 +149,18 @@ export default function History({ navigation }: any) {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#4A90E2" />
-        <Text style={styles.loadingText}>Carregando histórico...</Text>
+      <View style={[styles.loadingContainer, { backgroundColor: colors.background }]}>
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={[styles.loadingText, { color: colors.textSecondary }]}>
+          Carregando histórico...
+        </Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <Text style={styles.title}>Meu Histórico</Text>
         <Text style={styles.subtitle}>
           {checkIns.length} check-in{checkIns.length !== 1 ? 's' : ''} registrado{checkIns.length !== 1 ? 's' : ''}
@@ -150,12 +170,14 @@ export default function History({ navigation }: any) {
       {checkIns.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyEmoji}>📊</Text>
-          <Text style={styles.emptyTitle}>Nenhum check-in ainda</Text>
-          <Text style={styles.emptyText}>
+          <Text style={[styles.emptyTitle, { color: colors.text }]}>
+            Nenhum check-in ainda
+          </Text>
+          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
             Faça seu primeiro check-in para começar a acompanhar sua evolução!
           </Text>
           <TouchableOpacity
-            style={styles.emptyButton}
+            style={[styles.emptyButton, { backgroundColor: colors.primary }]}
             onPress={() => navigation.navigate('CheckIn')}
           >
             <Text style={styles.emptyButtonText}>Fazer Check-in</Text>
@@ -177,17 +199,15 @@ export default function History({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#BAC9B2',
   },
   header: {
-    backgroundColor: '#669168',
     alignItems: 'center',
     padding: 20,
     paddingTop: 50,
   },
   title: {
     fontSize: 28,
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter_700Bold',
     color: '#fff',
     marginBottom: 5,
   },
@@ -201,19 +221,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
   },
   loadingText: {
     marginTop: 10,
     fontSize: 16,
-    color: '#666',
+    fontFamily: 'Inter_400Regular',
   },
   listContainer: {
     padding: 15,
     paddingBottom: 30,
   },
   card: {
-    backgroundColor: '#E3E3E3',
     borderRadius: 12,
     padding: 16,
     marginBottom: 15,
@@ -230,12 +248,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ffffffff',
   },
   cardDate: {
     fontSize: 14,
-    color: '#000000ff',
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter_600SemiBold',
   },
   moodEmoji: {
     fontSize: 32,
@@ -250,29 +266,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   metricLabel: {
-    color: '#000000ff',
+    fontSize: 12,
     fontFamily: 'Inter_400Regular',
     marginBottom: 4,
   },
   metricValue: {
     fontSize: 18,
-    fontFamily: 'Inter_400Bold',
-    color: '#3191ffff',
+    fontFamily: 'Inter_700Bold',
   },
   commentsContainer: {
     marginTop: 12,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: '#ffffffff',
   },
   commentsLabel: {
     fontSize: 12,
-    color: '#252525ff',
+    fontFamily: 'Inter_600SemiBold',
     marginBottom: 4,
   },
   commentsText: {
     fontSize: 14,
-    color: '#000000ff',
     fontFamily: 'Inter_400Regular',
     lineHeight: 20,
   },
@@ -288,19 +301,17 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#333',
+    fontFamily: 'Inter_700Bold',
     marginBottom: 10,
   },
   emptyText: {
     fontSize: 16,
-    color: '#666',
+    fontFamily: 'Inter_400Regular',
     textAlign: 'center',
     marginBottom: 30,
     lineHeight: 22,
   },
   emptyButton: {
-    backgroundColor: '#4A90E2',
     paddingVertical: 14,
     paddingHorizontal: 30,
     borderRadius: 10,
@@ -308,6 +319,6 @@ const styles = StyleSheet.create({
   emptyButtonText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Inter_600SemiBold',
   },
 });

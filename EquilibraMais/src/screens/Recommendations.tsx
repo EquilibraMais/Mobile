@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
 
 interface Recommendation {
   id: string;
@@ -17,6 +18,7 @@ interface Recommendation {
 }
 
 export default function Recommendations({ navigation }: any) {
+  const { colors } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState('Todos');
 
   const categories = ['Todos', 'Energia', 'Foco', 'Relaxamento', 'Corpo'];
@@ -94,27 +96,35 @@ export default function Recommendations({ navigation }: any) {
       : recommendations.filter((rec) => rec.category === selectedCategory);
 
   const renderRecommendationCard = (item: Recommendation) => (
-    <View key={item.id} style={styles.card}>
+    <View key={item.id} style={[styles.card, { backgroundColor: colors.card }]}>
       <View style={styles.cardHeader}>
         <Text style={styles.cardIcon}>{item.icon}</Text>
         <View style={styles.cardHeaderText}>
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.cardCategory}>{item.category}</Text>
+          <Text style={[styles.cardTitle, { color: colors.text }]}>
+            {item.title}
+          </Text>
+          <Text style={[styles.cardCategory, { color: colors.primary }]}>
+            {item.category}
+          </Text>
         </View>
-        <View style={styles.durationBadge}>
-          <Text style={styles.durationText}>{item.duration}</Text>
+        <View style={[styles.durationBadge, { backgroundColor: colors.background }]}>
+          <Text style={[styles.durationText, { color: colors.primary }]}>
+            {item.duration}
+          </Text>
         </View>
       </View>
-      <Text style={styles.cardDescription}>{item.description}</Text>
-      <TouchableOpacity style={styles.tryButton}>
+      <Text style={[styles.cardDescription, { color: colors.textSecondary }]}>
+        {item.description}
+      </Text>
+      <TouchableOpacity style={[styles.tryButton, { backgroundColor: colors.primary }]}>
         <Text style={styles.tryButtonText}>Experimentar</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <Text style={styles.title}>Recomendações</Text>
         <Text style={styles.subtitle}>
           Práticas para melhorar seu bem-estar
@@ -133,13 +143,15 @@ export default function Recommendations({ navigation }: any) {
             key={category}
             style={[
               styles.categoryButton,
-              selectedCategory === category && styles.categoryButtonActive,
+              { backgroundColor: colors.card },
+              selectedCategory === category && { backgroundColor: colors.primary },
             ]}
             onPress={() => setSelectedCategory(category)}
           >
             <Text
               style={[
                 styles.categoryButtonText,
+                { color: colors.textSecondary },
                 selectedCategory === category && styles.categoryButtonTextActive,
               ]}
             >
@@ -164,17 +176,15 @@ export default function Recommendations({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#BAC9B2',
   },
   header: {
-    backgroundColor: '#669168',
     padding: 20,
     paddingTop: 50,
     alignItems: 'center',
   },
   title: {
     fontSize: 28,
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter_700Bold',
     color: '#fff',
     marginBottom: 5,
   },
@@ -185,7 +195,7 @@ const styles = StyleSheet.create({
     opacity: 0.95,
   },
   categoriesContainer: {
-    maxHeight: 40,
+    maxHeight: 60,
     marginTop: 15,
   },
   categoriesContent: {
@@ -196,16 +206,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
-    backgroundColor: '#E3E3E3',
     marginRight: 10,
-  },
-  categoryButtonActive: {
-    backgroundColor: '#6B8E65',
   },
   categoryButtonText: {
     fontSize: 14,
-    fontFamily: 'Inter_400Regular',
-    color: '#555',
+    fontFamily: 'Inter_600SemiBold',
   },
   categoryButtonTextActive: {
     color: '#fff',
@@ -218,7 +223,6 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   card: {
-    backgroundColor: '#E3E3E3',
     borderRadius: 12,
     padding: 16,
     marginBottom: 15,
@@ -242,18 +246,15 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 18,
-    fontFamily: 'Inter_400Regular',
-    color: '#333',
+    fontFamily: 'Inter_700Bold',
     marginBottom: 4,
   },
   cardCategory: {
     fontSize: 12,
-    fontFamily: 'Inter_400Regular',
-    color: '#6B8E65',
+    fontFamily: 'Inter_600SemiBold',
     textTransform: 'uppercase',
   },
   durationBadge: {
-    backgroundColor: '#BAC9B2',
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 12,
@@ -261,17 +262,14 @@ const styles = StyleSheet.create({
   durationText: {
     fontSize: 12,
     fontFamily: 'Inter_600SemiBold',
-    color: '#4A5A45',
   },
   cardDescription: {
     fontSize: 14,
     fontFamily: 'Inter_400Regular',
-    color: '#555',
     lineHeight: 20,
     marginBottom: 12,
   },
   tryButton: {
-    backgroundColor: '#6B8E65',
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',

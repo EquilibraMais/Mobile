@@ -9,8 +9,10 @@ import {
   Alert,
 } from 'react-native';
 import { auth } from '../services/firebase';
+import { useTheme } from '../context/ThemeContext';
 
 export default function CheckIn({ navigation }: any) {
+  const { colors } = useTheme();
   const [mood, setMood] = useState(0);
   const [energy, setEnergy] = useState(0);
   const [workload, setWorkload] = useState(0);
@@ -18,7 +20,6 @@ export default function CheckIn({ navigation }: any) {
   const [comments, setComments] = useState('');
 
   const moodEmojis = ['😢', '😟', '😐', '🙂', '😄'];
-  const energyLevels = ['Muito baixa', 'Baixa', 'Média', 'Alta', 'Muito alta'];
 
   const handleSubmit = async () => {
     if (mood === 0 || energy === 0 || workload === 0 || sleep === 0) {
@@ -37,7 +38,6 @@ export default function CheckIn({ navigation }: any) {
       timestamp: new Date().toISOString(),
     };
 
-    // Aqui é praenviar para a API
     console.log('Dados do check-in:', checkInData);
 
     Alert.alert(
@@ -60,21 +60,23 @@ export default function CheckIn({ navigation }: any) {
     setValue: (val: number) => void,
     options: string[]
   ) => (
-    <View style={styles.selectorContainer}>
-      <Text style={styles.selectorTitle}>{title}</Text>
+    <View style={[styles.selectorContainer, { backgroundColor: colors.card }]}>
+      <Text style={[styles.selectorTitle, { color: colors.text }]}>{title}</Text>
       <View style={styles.optionsRow}>
         {options.map((option, index) => (
           <TouchableOpacity
             key={index}
             style={[
               styles.optionButton,
-              value === index + 1 && styles.optionButtonSelected,
+              { backgroundColor: colors.background },
+              value === index + 1 && { backgroundColor: colors.primary },
             ]}
             onPress={() => setValue(index + 1)}
           >
             <Text
               style={[
                 styles.optionText,
+                { color: colors.text },
                 value === index + 1 && styles.optionTextSelected,
               ]}
             >
@@ -87,8 +89,8 @@ export default function CheckIn({ navigation }: any) {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <Text style={styles.title}>Check-in Diário</Text>
         <Text style={styles.subtitle}>
           Como você está se sentindo hoje?
@@ -96,15 +98,18 @@ export default function CheckIn({ navigation }: any) {
       </View>
 
       {/* Humor */}
-      <View style={styles.selectorContainer}>
-        <Text style={styles.selectorTitle}>Como está seu humor?</Text>
+      <View style={[styles.selectorContainer, { backgroundColor: colors.card }]}>
+        <Text style={[styles.selectorTitle, { color: colors.text }]}>
+          Como está seu humor?
+        </Text>
         <View style={styles.emojiRow}>
           {moodEmojis.map((emoji, index) => (
             <TouchableOpacity
               key={index}
               style={[
                 styles.emojiButton,
-                mood === index + 1 && styles.emojiButtonSelected,
+                { backgroundColor: colors.background },
+                mood === index + 1 && { backgroundColor: colors.primary },
               ]}
               onPress={() => setMood(index + 1)}
             >
@@ -139,13 +144,21 @@ export default function CheckIn({ navigation }: any) {
       )}
 
       {/* Comentários */}
-      <View style={styles.commentsContainer}>
-        <Text style={styles.selectorTitle}>
+      <View style={[styles.commentsContainer, { backgroundColor: colors.card }]}>
+        <Text style={[styles.selectorTitle, { color: colors.text }]}>
           Comentários (opcional)
         </Text>
         <TextInput
-          style={styles.textArea}
+          style={[
+            styles.textArea,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.border,
+              color: colors.text,
+            },
+          ]}
           placeholder="Escreva algo sobre como está se sentindo..."
+          placeholderTextColor={colors.textSecondary}
           value={comments}
           onChangeText={setComments}
           multiline
@@ -153,7 +166,10 @@ export default function CheckIn({ navigation }: any) {
         />
       </View>
 
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+      <TouchableOpacity 
+        style={[styles.submitButton, { backgroundColor: colors.primary }]} 
+        onPress={handleSubmit}
+      >
         <Text style={styles.submitButtonText}>Salvar Check-in</Text>
       </TouchableOpacity>
 
@@ -165,17 +181,15 @@ export default function CheckIn({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#BAC9B2',
   },
   header: {
-    backgroundColor: '#669168',
     padding: 20,
     paddingTop: 50,
     alignItems: 'center',
   },
   title: {
     fontSize: 28,
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter_700Bold',
     color: '#fff',
     marginBottom: 5,
   },
@@ -186,7 +200,6 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   selectorContainer: {
-    backgroundColor: '#E3E3E3',
     padding: 20,
     marginTop: 15,
     marginHorizontal: 15,
@@ -199,8 +212,7 @@ const styles = StyleSheet.create({
   },
   selectorTitle: {
     fontSize: 16,
-    fontFamily: 'Inter_400Regular',
-    color: '#333',
+    fontFamily: 'Inter_600SemiBold',
     marginBottom: 15,
   },
   emojiRow: {
@@ -210,15 +222,10 @@ const styles = StyleSheet.create({
   emojiButton: {
     padding: 10,
     borderRadius: 50,
-    backgroundColor: '#f0f0f0',
     width: 60,
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  emojiButtonSelected: {
-    backgroundColor: '#4A90E2',
-    transform: [{ scale: 1.1 }],
   },
   emoji: {
     fontSize: 32,
@@ -232,23 +239,17 @@ const styles = StyleSheet.create({
     padding: 12,
     marginHorizontal: 3,
     borderRadius: 8,
-    backgroundColor: '#f0f0f0',
     alignItems: 'center',
-  },
-  optionButtonSelected: {
-    backgroundColor: '#4A90E2',
   },
   optionText: {
     fontSize: 14,
-    color: '#333',
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter_600SemiBold',
   },
   optionTextSelected: {
     color: '#fff',
     fontWeight: 'bold',
   },
   commentsContainer: {
-    backgroundColor: '#E3E3E3',
     padding: 20,
     marginTop: 15,
     marginHorizontal: 15,
@@ -261,7 +262,6 @@ const styles = StyleSheet.create({
   },
   textArea: {
     borderWidth: 1,
-    borderColor: '#000000ff',
     borderRadius: 8,
     padding: 12,
     fontSize: 14,
@@ -270,7 +270,6 @@ const styles = StyleSheet.create({
     minHeight: 100,
   },
   submitButton: {
-    backgroundColor: '#4A90E2',
     padding: 16,
     marginHorizontal: 15,
     marginTop: 20,
@@ -280,7 +279,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter_600SemiBold',
   },
   bottomSpacing: {
     height: 30,

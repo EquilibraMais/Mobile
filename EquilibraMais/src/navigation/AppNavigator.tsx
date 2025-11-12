@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../services/firebase';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../context/ThemeContext';
+import { View } from 'react-native';
 
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
@@ -13,85 +15,89 @@ import CheckIn from '../screens/CheckIn';
 import History from '../screens/History';
 import Recommendations from '../screens/Recommendations';
 import About from '../screens/About';
-
+import ThemeToggleButton from '../components/ThemeToggleButton';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function TabNavigator() {
+  const { colors } = useTheme();
+
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#BAC9B2',
-          height: 85,
-          paddingBottom: 18,
-          paddingTop: 8,
-        },
-        tabBarActiveTintColor: '#24913fff',
-        tabBarInactiveTintColor: '#ffffffff',
-        tabBarLabelStyle: {
-          fontFamily: 'Inter_400Regular',
-          fontSize: 12,
-        },
-      }}
-    >
-      <Tab.Screen 
-        name="Home" 
-        component={Home}
-        options={{
-          title: 'Início',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="CheckIn" 
-        component={CheckIn}
-        options={{
-          title: 'Check-in',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="checkmark-circle" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="Recommendations" 
-        component={Recommendations}
-        options={{
-          title: 'Dicas',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bulb" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="History" 
-        component={History}
-        options={{
-          title: 'Histórico',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bar-chart" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="About" 
-        component={About}
-        options={{
-          title: 'Sobre',
+    <View style={{ flex: 1 }}>
+      <Tab.Navigator
+        screenOptions={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="information-circle" size={size} color={color} />
-    ),
-  }}
-/>
-    </Tab.Navigator>
+          tabBarStyle: {
+            backgroundColor: colors.tabBar,
+            height: 85,
+            paddingBottom: 8,
+            paddingTop: 8,
+            borderTopColor: colors.border,
+          },
+          tabBarActiveTintColor: colors.primary,
+          tabBarInactiveTintColor: colors.textSecondary,
+          tabBarLabelStyle: {
+            fontFamily: 'Inter_600SemiBold',
+            fontSize: 12,
+          },
+        }}
+      >
+        <Tab.Screen 
+          name="Home" 
+          component={Home}
+          options={{
+            title: 'Início',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="CheckIn" 
+          component={CheckIn}
+          options={{
+            title: 'Check-in',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="checkmark-circle" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="History" 
+          component={History}
+          options={{
+            title: 'Histórico',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="bar-chart" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="Recommendations" 
+          component={Recommendations}
+          options={{
+            title: 'Dicas',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="bulb" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="About" 
+          component={About}
+          options={{
+            title: 'Sobre',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="information-circle" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+      <ThemeToggleButton />
+    </View>
   );
 }
-
 
 export default function AppNavigator() {
   const [user, setUser] = useState<any>(null);

@@ -1,6 +1,7 @@
 import React from 'react';
-import AppNavigator from './src/navigation/AppNavigator';
 import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
+import AppNavigator from './src/navigation/AppNavigator';
+import { ThemeProvider } from './src/context/ThemeContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -9,7 +10,13 @@ export default function App() {
     Inter_700Bold,
   });
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) {
+    return null;
+  }
 
-  return <AppNavigator />;
+  return (
+    <ThemeProvider>
+      <AppNavigator />
+    </ThemeProvider>
+  );
 }

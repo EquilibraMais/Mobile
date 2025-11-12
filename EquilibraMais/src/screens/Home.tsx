@@ -1,49 +1,33 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { signOut } from 'firebase/auth';
 import { auth } from '../services/firebase';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Home({ navigation }: any) {
+  const { colors } = useTheme();
+
   const handleLogout = async () => {
     await signOut(auth);
-    navigation.replace('Login');
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo à Plataforma Equilibra Mais! 🌟</Text>
-      <Text style={styles.subtitle}>
-        Estamos felizes em tê-lo aqui. Faça seu check-in diário e acompanhe sua evolução.
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.title, { color: colors.text }]}>
+        Bem-vindo ao EquilibraMais! 🌟
+      </Text>
+      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+        Seu companheiro de bem-estar no trabalho.
       </Text>
 
       <TouchableOpacity 
-        style={styles.checkInButton}
-        onPress={() => navigation.navigate('CheckIn')}
+        style={[styles.logoutButton, { backgroundColor: colors.card }]}
+        onPress={handleLogout}
       >
-        <Text style={styles.checkInButtonText}>Fazer Check-in Diário</Text>
+        <Text style={[styles.logoutText, { color: colors.textSecondary }]}>
+          Sair
+        </Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-        style={styles.recommendationsButton}
-        onPress={() => navigation.navigate('Recommendations')}
-      >
-        <Text style={styles.recommendationsButtonText}>Ver Recomendações</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity 
-        style={styles.historyButton}
-        onPress={() => navigation.navigate('History')}
-      >
-        <Text style={styles.historyButtonText}>Ver Meu Histórico</Text>
-    </TouchableOpacity>
-
-    <TouchableOpacity 
-        style={styles.historyButton}
-        onPress={() => navigation.navigate('About')}
-      >
-        <Text style={styles.historyButtonText}>Sobre o Aplicativo</Text>
-    </TouchableOpacity>
-
-      <Button title="Sair" onPress={handleLogout} />
     </View>
   );
 }
@@ -54,57 +38,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#BAC9B2',
   },
   title: {
-    fontSize: 26,
-    fontFamily: 'Inter_400Regular',
-    fontWeight: 'bold',
-    marginBottom: 15,
+    fontSize: 28,
+    fontFamily: 'Inter_700Bold',
     textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 30,
-    fontFamily: 'Inter_400Regular',
-    color: '#555',
-  },
-  checkInButton: {
-    backgroundColor: '#24913fff',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 30,
     marginBottom: 10,
   },
-  checkInButtonText: {
-    color: '#fff',
-    fontFamily: 'Inter_400Regular',
+  subtitle: {
     fontSize: 18,
+    fontFamily: 'Inter_400Regular',
+    textAlign: 'center',
+    marginBottom: 40,
   },
-  historyButton: {
-  backgroundColor: '#24913fff',
-  paddingVertical: 15,
-  paddingHorizontal: 40,
-  borderRadius: 30,
-  marginBottom: 10,
-},
-historyButtonText: {
-  color: '#fff',
-  fontSize: 18,
-  fontFamily: 'Inter_400Regular',
-},
-recommendationsButton: {
-  backgroundColor: '#24913fff',
-  paddingVertical: 15,
-  paddingHorizontal: 40,
-  borderRadius: 30,
-  marginBottom: 10,
-},
-recommendationsButtonText: {
-  color: '#fff',
-  fontSize: 18,
-  fontFamily: 'Inter_400Regular',
-},
-
+  logoutButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+  },
+  logoutText: {
+    fontSize: 16,
+    fontFamily: 'Inter_600SemiBold',
+  },
 });
