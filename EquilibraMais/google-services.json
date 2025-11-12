@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "169477820527",
+    "project_id": "equilibramais-gs",
+    "storage_bucket": "equilibramais-gs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169477820527:android:d5abf4bcb6ad74bc763d9a",
+        "android_client_info": {
+          "package_name": "equilibra.mais"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVjFrPXZGfXO6MvnUzln3PIM1M42Vmyyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
