@@ -18,6 +18,8 @@ export default function Home({ navigation }: any) {
       </Text>
       <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
         Seu companheiro de bem-estar no trabalho.
+        {'\n\n'}
+        Por favor, navegue pelo menu abaixo para acessar as funcionalidades do app.
       </Text>
 
       <TouchableOpacity 
@@ -25,7 +27,7 @@ export default function Home({ navigation }: any) {
         onPress={handleLogout}
       >
         <Text style={[styles.logoutText, { color: colors.textSecondary }]}>
-          Sair
+          Sair da conta
         </Text>
       </TouchableOpacity>
     </View>
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Inter_400Regular',
     textAlign: 'center',
     marginBottom: 40,
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
   logoutButton: {
     paddingVertical: 12,
     paddingHorizontal: 30,
-    borderRadius: 8,
+    borderRadius: 30,
   },
   logoutText: {
     fontSize: 16,
