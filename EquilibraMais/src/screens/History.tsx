@@ -6,20 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { auth } from '../services/firebase';
 import { useTheme } from '../context/ThemeContext';
-
-interface CheckInData {
-  id: string;
-  userId: string;
-  mood: number;
-  energy: number;
-  workload: number;
-  sleep: number;
-  comments: string;
-  timestamp: string;
-}
+import { getCheckIns, deleteCheckIn, CheckInData } from '../services/checkinService';
 
 export default function History({ navigation }: any) {
   const { colors } = useTheme();
@@ -32,46 +24,54 @@ export default function History({ navigation }: any) {
 
   const fetchCheckIns = async () => {
     try {
-      // TODO: Substituir por chamada à sua API
-      const mockData: CheckInData[] = [
-        {
-          id: '1',
-          userId: auth.currentUser?.uid || '',
-          mood: 4,
-          energy: 3,
-          workload: 3,
-          sleep: 4,
-          comments: 'Dia produtivo!',
-          timestamp: '2025-11-11T10:30:00',
-        },
-        {
-          id: '2',
-          userId: auth.currentUser?.uid || '',
-          mood: 3,
-          energy: 2,
-          workload: 4,
-          sleep: 3,
-          comments: 'Um pouco cansado hoje',
-          timestamp: '2025-11-10T09:15:00',
-        },
-        {
-          id: '3',
-          userId: auth.currentUser?.uid || '',
-          mood: 5,
-          energy: 5,
-          workload: 2,
-          sleep: 5,
-          comments: 'Excelente dia!',
-          timestamp: '2025-11-09T11:00:00',
-        },
-      ];
-
-      setCheckIns(mockData);
-      setLoading(false);
+      setLoading(true);
+      const userId = auth.currentUser?.uid;
+      
+      if (userId) {
+        const data = await getCheckIns(userId);
+        setCheckIns(data);
+      }
     } catch (error) {
       console.error('Erro ao buscar check-ins:', error);
+    } finally {
       setLoading(false);
     }
+  };
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchCheckIns();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const handleDelete = (item: CheckInData) => {
+    Alert.alert(
+      'Excluir Check-in',
+      `Tem certeza que deseja excluir o check-in de ${formatDate(item.timestamp)}?`,
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              if (item.id) {
+                await deleteCheckIn(item.id);
+                setCheckIns(prev => prev.filter(c => c.id !== item.id));
+                Alert.alert('Sucesso', 'Check-in excluído com sucesso!');
+              }
+            } catch (error) {
+              console.error('Erro ao deletar:', error);
+              Alert.alert('Erro', 'Não foi possível excluir o check-in.');
+            }
+          },
+        },
+      ]
+    );
   };
 
   const getMoodEmoji = (mood: number) => {
@@ -92,6 +92,13 @@ export default function History({ navigation }: any) {
 
   const renderCheckInCard = ({ item }: { item: CheckInData }) => (
     <View style={[styles.card, { backgroundColor: colors.card }]}>
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => handleDelete(item)}
+      >
+        <Ionicons name="trash-outline" size={20} color="#ff6b6b" />
+      </TouchableOpacity>
+
       <View style={[styles.cardHeader, { borderBottomColor: colors.border }]}>
         <Text style={[styles.cardDate, { color: colors.textSecondary }]}>
           {formatDate(item.timestamp)}
@@ -187,7 +194,7 @@ export default function History({ navigation }: any) {
         <FlatList
           data={checkIns}
           renderItem={renderCheckInCard}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id || item.timestamp}
           contentContainerStyle={styles.listContainer}
           showsVerticalScrollIndicator={false}
         />
@@ -240,6 +247,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    position: 'relative',
+  },
+  deleteButton: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 107, 107, 0.1)',
+    zIndex: 10,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -248,6 +265,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingBottom: 10,
     borderBottomWidth: 1,
+    paddingRight: 40,
   },
   cardDate: {
     fontSize: 14,

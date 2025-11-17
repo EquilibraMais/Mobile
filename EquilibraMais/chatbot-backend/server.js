@@ -1,5 +1,3 @@
-// chatbot-backend/server.js
-
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -15,12 +13,10 @@ app.use(express.json());
 // Inicializar Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// ✅ USAR O MODELO MAIS RECENTE DISPONÍVEL
 const model = genAI.getGenerativeModel({ 
-  model: 'gemini-2.5-flash-lite'  // Modelo mais recente e estável
+  model: 'gemini-2.5-flash-lite'
 });
 
-// ✅ ENDPOINT PRINCIPAL DO CHATBOT
 app.post('/chat', async (req, res) => {
   try {
     const { message, userId, checkIns } = req.body;
@@ -73,7 +69,6 @@ Responda de forma amigável e útil:`;
   }
 });
 
-// ✅ ENDPOINT PARA GERAR PLANO PERSONALIZADO
 app.post('/generate-plan', async (req, res) => {
   try {
     const { userId, checkIns } = req.body;
@@ -108,7 +103,7 @@ Crie um plano com:
 2. **3 Recomendações Práticas** (ações concretas e específicas)
 3. **2 Metas Semanais** (objetivos realistas e mensuráveis)
 
-Seja específico, motivador e use linguagem acessível.`;
+Seja específico, motivador e use linguagem acessível. Gere o plano baseado no últimos 5 check-ins.`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -135,7 +130,6 @@ Seja específico, motivador e use linguagem acessível.`;
   }
 });
 
-// ✅ HEALTH CHECK
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'ok', 
@@ -144,7 +138,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`🤖 Chatbot backend rodando na porta ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);

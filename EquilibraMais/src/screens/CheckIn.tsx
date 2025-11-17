@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { auth } from '../services/firebase';
 import { useTheme } from '../context/ThemeContext';
+import { saveCheckIn } from '../services/checkinService'; // ← IMPORTAR
 
 export default function CheckIn({ navigation }: any) {
   const { colors } = useTheme();
@@ -27,31 +28,33 @@ export default function CheckIn({ navigation }: any) {
       return;
     }
 
-    const checkInData = {
-      userId: auth.currentUser?.uid,
-      email: auth.currentUser?.email,
-      mood,
-      energy,
-      workload,
-      sleep,
-      comments,
-      timestamp: new Date().toISOString(),
-    };
+    try {
+      await saveCheckIn({
+        userId: auth.currentUser?.uid || 'anonymous',
+        email: auth.currentUser?.email || '',
+        mood,
+        energy,
+        workload,
+        sleep,
+        comments,
+        timestamp: new Date().toISOString(),
+      });
 
-    console.log('Dados do check-in:', checkInData);
+      Alert.alert(
+        'Check-in registrado!',
+        'Seus dados foram salvos com sucesso.',
+        [{ text: 'OK', onPress: () => navigation.goBack() }]
+      );
 
-    Alert.alert(
-      'Check-in registrado!',
-      'Seus dados foram salvos com sucesso.',
-      [{ text: 'OK', onPress: () => navigation.goBack() }]
-    );
-
-    // Limpa o formulário
-    setMood(0);
-    setEnergy(0);
-    setWorkload(0);
-    setSleep(0);
-    setComments('');
+      setMood(0);
+      setEnergy(0);
+      setWorkload(0);
+      setSleep(0);
+      setComments('');
+    } catch (error) {
+      console.error('Erro ao salvar check-in:', error);
+      Alert.alert('Erro', 'Não foi possível salvar o check-in. Tente novamente.');
+    }
   };
 
   const renderSelector = (
@@ -120,28 +123,13 @@ export default function CheckIn({ navigation }: any) {
       </View>
 
       {/* Energia */}
-      {renderSelector(
-        'Nível de energia',
-        energy,
-        setEnergy,
-        ['1', '2', '3', '4', '5']
-      )}
+      {renderSelector('Nível de energia', energy, setEnergy, ['1', '2', '3', '4', '5'])}
 
       {/* Carga de trabalho */}
-      {renderSelector(
-        'Carga de trabalho',
-        workload,
-        setWorkload,
-        ['1', '2', '3', '4', '5']
-      )}
+      {renderSelector('Carga de trabalho', workload, setWorkload, ['1', '2', '3', '4', '5'])}
 
       {/* Qualidade do sono */}
-      {renderSelector(
-        'Qualidade do sono',
-        sleep,
-        setSleep,
-        ['1', '2', '3', '4', '5']
-      )}
+      {renderSelector('Qualidade do sono', sleep, setSleep, ['1', '2', '3', '4', '5'])}
 
       {/* Comentários */}
       <View style={[styles.commentsContainer, { backgroundColor: colors.card }]}>
@@ -177,6 +165,7 @@ export default function CheckIn({ navigation }: any) {
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
