@@ -16,6 +16,7 @@ import History from '../screens/History';
 import Recommendations from '../screens/Recommendations';
 import About from '../screens/About';
 import ThemeToggleButton from '../components/ThemeToggleButton';
+import ChatBot from '../screens/ChatBot';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -74,6 +75,16 @@ function TabNavigator() {
           }}
         />
         <Tab.Screen 
+          name="ChatBot" 
+          component={ChatBot}
+          options={{
+            title: 'Assistente',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="chatbubbles" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
           name="Recommendations" 
           component={Recommendations}
           options={{
@@ -119,7 +130,7 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Main" component={TabNavigator} />
+          <Stack.Screen name="Main" component={TabNavigator} /> // ← Correto
         ) : (
           <>
             <Stack.Screen name="Login" component={Login} />

@@ -1,0 +1,3 @@
+# chatbot-backend/.gitignore
+node_modules/
+.env
