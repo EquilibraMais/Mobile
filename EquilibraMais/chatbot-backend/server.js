@@ -29,7 +29,7 @@ app.post('/chat', async (req, res) => {
       });
     }
 
-    // Montar contexto
+    // Contexto dado
     let contextPrompt = `Você é o Equilíbrio, um assistente de bem-estar emocional no trabalho.
 Seja empático, acolhedor e prático. Responda em até 3 parágrafos curtos.
 
@@ -133,7 +133,7 @@ Seja específico, motivador e use linguagem acessível. Gere o plano baseado no 
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'ok', 
-    model: 'gemini-1.5-flash-latest',
+    model: 'gemini-2.5-flash-lite',
     timestamp: new Date().toISOString() 
   });
 });
@@ -141,6 +141,6 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🤖 Chatbot backend rodando na porta ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);
-  console.log(`🤖 Modelo: gemini-1.5-flash-latest`);
+  console.log(`🤖 Modelo: gemini-2.5-flash-lite`);
   console.log(`🔑 API Key: ${process.env.GEMINI_API_KEY ? '✅ Configurada' : '❌ Não encontrada'}`);
 });
