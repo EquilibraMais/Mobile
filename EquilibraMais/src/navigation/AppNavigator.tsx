@@ -17,6 +17,8 @@ import Recommendations from '../screens/Recommendations';
 import About from '../screens/About';
 import ThemeToggleButton from '../components/ThemeToggleButton';
 import ChatBot from '../screens/ChatBot';
+import Devs from '../screens/Devs';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -104,6 +106,16 @@ function TabNavigator() {
             ),
           }}
         />
+        <Tab.Screen 
+          name="Devs" 
+          component={Devs}
+          options={{
+            title: 'Equipe',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="people" size={size} color={color} />
+            ),
+          }}
+        />
       </Tab.Navigator>
       <ThemeToggleButton />
     </View>
@@ -130,7 +142,7 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Main" component={TabNavigator} /> // ← Correto
+          <Stack.Screen name="Main" component={TabNavigator} />
         ) : (
           <>
             <Stack.Screen name="Login" component={Login} />

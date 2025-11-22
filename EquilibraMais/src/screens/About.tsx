@@ -1,6 +1,8 @@
+// src/screens/About.tsx
+
 import React from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, Image
+  View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
@@ -69,71 +71,17 @@ export default function About({ navigation }: any) {
         </Text>
       </View>
 
-      <View style={styles.teamSection}>
-        <Text style={[styles.teamTitle, { color: colors.text }]}>
-          Equipe de Desenvolvimento
+      {/* ✅ NOVO: Botão para acessar tela de Devs */}
+      <TouchableOpacity 
+        style={[styles.devsButton, { backgroundColor: colors.card, borderColor: colors.primary }]}
+        onPress={() => navigation.navigate('Devs')}
+      >
+        <Ionicons name="people" size={24} color={colors.primary} />
+        <Text style={[styles.devsButtonText, { color: colors.text }]}>
+          Conheça a equipe
         </Text>
-        
-        <View style={styles.membersList}>
-          <View style={[styles.memberCard, { backgroundColor: colors.card }]}>
-            <Image 
-              source={require('../../assets/gu.png')}
-              style={styles.memberPhoto}
-            />
-            <View style={styles.memberInfo}>
-              <Text style={[styles.memberName, { color: colors.text }]}>
-                Gustavo de Aguiar Lima Silva
-              </Text>
-              <Text style={[styles.memberRM, { color: colors.primary }]}>
-                RM: 557707
-              </Text>
-              <Text style={[styles.memberClass, { color: colors.textSecondary }]}>
-                Turma: 2TDSPF
-              </Text>
-            </View>
-          </View>
-
-          <View style={[styles.memberCard, { backgroundColor: colors.card }]}>
-            <Image 
-              source={require('../../assets/julio.png')}
-              style={styles.memberPhoto}
-            />
-            <View style={styles.memberInfo}>
-              <Text style={[styles.memberName, { color: colors.text }]}>
-                Julio Cesar Conceição Rodrigues
-              </Text>
-              <Text style={[styles.memberRM, { color: colors.primary }]}>
-                RM: 557298
-              </Text>
-              <Text style={[styles.memberClass, { color: colors.textSecondary }]}>
-                Turma: 2TDSPF
-              </Text>
-            </View>
-          </View>
-
-          <View style={[styles.memberCard, { backgroundColor: colors.card }]}>
-            <Image 
-              source={require('../../assets/matheus.png')}
-              style={styles.memberPhoto}
-            />
-            <View style={styles.memberInfo}>
-              <Text style={[styles.memberName, { color: colors.text }]}>
-                Matheus de Freitas Silva
-              </Text>
-              <Text style={[styles.memberRM, { color: colors.primary }]}>
-                RM: 552602
-              </Text>
-              <Text style={[styles.memberClass, { color: colors.textSecondary }]}>
-                Turma: 2TDSPF
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <Text style={[styles.projectInfo, { color: colors.textSecondary }]}>
-          FIAP - Global Solution 2025
-        </Text>
-      </View>
+        <Ionicons name="chevron-forward" size={24} color={colors.primary} />
+      </TouchableOpacity>
 
       <TouchableOpacity 
         style={[styles.backButton, { backgroundColor: colors.primary }]}
@@ -145,6 +93,9 @@ export default function About({ navigation }: any) {
       <View style={[styles.footer, { borderTopColor: colors.border }]}>
         <Text style={[styles.footerText, { color: colors.textSecondary }]}>
           © 2025 EquilibraMais. Todos os direitos reservados.
+        </Text>
+        <Text style={[styles.footerText, { color: colors.textSecondary }]}>
+          FIAP - Global Solution 2025
         </Text>
       </View>
     </ScrollView>
@@ -208,58 +159,23 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     lineHeight: 24,
   },
-  teamSection: {
+  // ✅ NOVO: Estilo do botão para Devs
+  devsButton: {
+    marginHorizontal: 20,
+    paddingVertical: 16,
     paddingHorizontal: 20,
-    marginBottom: 30,
-  },
-  teamTitle: {
-    fontSize: 20,
-    fontFamily: 'Inter_700Bold',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  membersList: {
-    gap: 15,
-  },
-  memberCard: {
     borderRadius: 12,
-    padding: 15,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    justifyContent: 'space-between',
+    marginBottom: 15,
+    borderWidth: 2,
   },
-  memberPhoto: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    marginRight: 15,
-  },
-  memberInfo: {
+  devsButtonText: {
+    fontSize: 16,
+    fontFamily: 'Inter_600SemiBold',
     flex: 1,
-  },
-  memberName: {
-    fontSize: 18,
-    fontFamily: 'Inter_700Bold',
-    marginBottom: 4,
-  },
-  memberRM: {
-    fontSize: 14,
-    fontFamily: 'Inter_600SemiBold',
-    marginBottom: 2,
-  },
-  memberClass: {
-    fontSize: 14,
-    fontFamily: 'Inter_400Regular',
-  },
-  projectInfo: {
-    fontSize: 14,
-    fontFamily: 'Inter_600SemiBold',
-    textAlign: 'center',
-    marginTop: 20,
+    marginLeft: 12,
   },
   backButton: {
     marginHorizontal: 20,
@@ -277,6 +193,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
     borderTopWidth: 1,
+    gap: 5,
   },
   footerText: {
     fontSize: 12,

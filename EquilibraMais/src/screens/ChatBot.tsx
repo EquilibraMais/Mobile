@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 50,
+    paddingTop: 70,
     paddingBottom: 15,
     paddingHorizontal: 15,
   },
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 30,
     fontFamily: 'Inter_700Bold',
     color: '#fff',
   },
