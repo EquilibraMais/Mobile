@@ -1,4 +1,3 @@
-// src/screens/About.tsx
 
 import React from 'react';
 import {
@@ -71,7 +70,6 @@ export default function About({ navigation }: any) {
         </Text>
       </View>
 
-      {/* ✅ NOVO: Botão para acessar tela de Devs */}
       <TouchableOpacity 
         style={[styles.devsButton, { backgroundColor: colors.card, borderColor: colors.primary }]}
         onPress={() => navigation.navigate('Devs')}
@@ -159,7 +157,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     lineHeight: 24,
   },
-  // ✅ NOVO: Estilo do botão para Devs
   devsButton: {
     marginHorizontal: 20,
     paddingVertical: 16,

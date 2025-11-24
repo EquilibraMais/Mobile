@@ -131,7 +131,6 @@ export default function Recommendations({ navigation }: any) {
         </Text>
       </View>
 
-      {/* Filtros de categoria */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -161,7 +160,6 @@ export default function Recommendations({ navigation }: any) {
         ))}
       </ScrollView>
 
-      {/* Lista de recomendações */}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.cardsContainer}

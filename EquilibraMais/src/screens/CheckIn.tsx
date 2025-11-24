@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { auth } from '../services/firebase';
 import { useTheme } from '../context/ThemeContext';
-import { saveCheckIn } from '../services/checkinService'; // ← IMPORTAR
+import { saveCheckIn } from '../services/checkinService';
 
 export default function CheckIn({ navigation }: any) {
   const { colors } = useTheme();

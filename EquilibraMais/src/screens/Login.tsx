@@ -42,7 +42,6 @@ export default function Login({ navigation }: any) {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
         <View style={styles.header}>
           <View style={styles.iconContainer}>
             <Ionicons name="leaf" size={60} color="#6B8E65" />
@@ -51,16 +50,13 @@ export default function Login({ navigation }: any) {
           <Text style={styles.subtitle}>Bem-vindo de volta!</Text>
         </View>
 
-        {/* Credenciais de teste */}
         <View style={styles.testCredsContainer}>
           <Text style={styles.testCredsTitle}>Credenciais de teste:</Text>
           <Text style={styles.testCredsText}>📧 teste@email.com</Text>
           <Text style={styles.testCredsText}>🔑 senha123</Text>
         </View>
 
-        {/* Formulário */}
         <View style={styles.form}>
-          {/* Email Input */}
           <View style={styles.inputContainer}>
             <Ionicons name="mail-outline" size={20} color="#666" style={styles.inputIcon} />
             <TextInput
@@ -74,7 +70,6 @@ export default function Login({ navigation }: any) {
             />
           </View>
 
-          {/* Password Input */}
           <View style={styles.inputContainer}>
             <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
             <TextInput
@@ -97,7 +92,6 @@ export default function Login({ navigation }: any) {
             </TouchableOpacity>
           </View>
 
-          {/* Botão de Login */}
           <TouchableOpacity 
             style={styles.loginButton}
             onPress={handleLogin}
@@ -107,14 +101,12 @@ export default function Login({ navigation }: any) {
             <Ionicons name="arrow-forward" size={20} color="#fff" />
           </TouchableOpacity>
 
-          {/* Divider */}
           <View style={styles.divider}>
             <View style={styles.dividerLine} />
             <Text style={styles.dividerText}>ou</Text>
             <View style={styles.dividerLine} />
           </View>
 
-          {/* Botão de Cadastro */}
           <TouchableOpacity 
             style={styles.signUpButton}
             onPress={() => navigation.navigate('SignUp')}

@@ -61,7 +61,6 @@ export default function SignUp({ navigation }: any) {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity 
             style={styles.backButton}
@@ -77,9 +76,7 @@ export default function SignUp({ navigation }: any) {
           <Text style={styles.subtitle}>Junte-se ao EquilibraMais</Text>
         </View>
 
-        {/* Formulário */}
         <View style={styles.form}>
-          {/* Email Input */}
           <View style={styles.inputContainer}>
             <Ionicons name="mail-outline" size={20} color="#666" style={styles.inputIcon} />
             <TextInput
@@ -93,7 +90,6 @@ export default function SignUp({ navigation }: any) {
             />
           </View>
 
-          {/* Password Input */}
           <View style={styles.inputContainer}>
             <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
             <TextInput
@@ -116,7 +112,6 @@ export default function SignUp({ navigation }: any) {
             </TouchableOpacity>
           </View>
 
-          {/* Confirm Password Input */}
           <View style={styles.inputContainer}>
             <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.inputIcon} />
             <TextInput
@@ -139,7 +134,6 @@ export default function SignUp({ navigation }: any) {
             </TouchableOpacity>
           </View>
 
-          {/* Password Strength Indicator */}
           {password.length > 0 && (
             <View style={styles.passwordStrength}>
               <View style={[
@@ -156,7 +150,6 @@ export default function SignUp({ navigation }: any) {
             </View>
           )}
 
-          {/* Botão de Cadastro */}
           <TouchableOpacity 
             style={styles.signUpButton}
             onPress={handleSignUp}
@@ -166,14 +159,12 @@ export default function SignUp({ navigation }: any) {
             <Ionicons name="checkmark-circle" size={20} color="#fff" />
           </TouchableOpacity>
 
-          {/* Divider */}
           <View style={styles.divider}>
             <View style={styles.dividerLine} />
             <Text style={styles.dividerText}>ou</Text>
             <View style={styles.dividerLine} />
           </View>
 
-          {/* Botão de Login */}
           <TouchableOpacity 
             style={styles.loginButton}
             onPress={() => navigation.navigate('Login')}
